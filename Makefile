@@ -6,19 +6,19 @@ SRCS	= \
 		ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_tolower.c ft_toupper.c \
 		ft_substr.c  ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c \
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-		ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_u_int.c \
-		ft_max.c ft_min.c ft_isspace.c ft_swap.c ft_abs.c \
 		ft_lstnew.c ft_lstsize.c ft_lstlast.c ft_lstadd_front.c ft_lstadd_back.c \
 		ft_lstiter.c ft_lstdelone.c ft_lstclear.c ft_lstmap.c \
-		get_next_line.c get_next_line_utils.c
+		get_next_line.c get_next_line_utils.c \
+		ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_u_int.c \
+		ft_max.c ft_min.c ft_isspace.c ft_swap.c ft_abs.c
 
-NAME	= libft.a
+NAME	=	libft.a
 
-HEADER	= libft.h
+HEADER	=	libft.h
 
-CC		= gcc
+CC	=	gcc
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 
 # about other flags
 # -Wfloat-equal выдаст ошибку при сравнении чисел с плавующей точкой
@@ -28,37 +28,37 @@ CFLAGS	= -Wall -Wextra -Werror
 # -Wunreachable-code # 
 
 # создаём скрытую директорию, в которой будут .o файлы
-OBJS_DIR =			.obj
+OBJS_DIR =	.obj
 
 # прописываем (добавляем) путь для каждого .o файла
-OBJS	= 			$(addprefix $(OBJS_DIR)/, $(patsubst %.c, %.o, $(SRCS)))
+OBJS	= 	$(addprefix $(OBJS_DIR)/, $(patsubst %.c, %.o, $(SRCS)))
 
-NORM 	=			~/.scripts/colorised_norm.sh
+NORM 	=	norminette
 
-all:		$(NAME)
+all:	$(NAME)
 
-$(NAME): 	$(OBJS)
-			@ar rc $(NAME) $?
-			@printf "$(GREEN)$(BOLD)$(LIGHT_PURPLE)libft –– [Success compiling]        $(NO_COLOR)\n"
+$(NAME): $(OBJS)
+	@ar rc $(NAME) $?
+	@printf "$(GREEN)$(BOLD)$(LIGHT_PURPLE)libft –– [Success compiling]        $(NO_COLOR)\n"
 
 $(OBJS_DIR)/%.o:	%.c $(HEADER)
-					@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR)
-					@printf "$(GREEN)$(BOLD)Compilation $(UNDER_LINE)$(YELLOW)$<$(NO_COLOR)  $(BOLD)–– $(RED)[KO]        $(NO_COLOR)\r"
-					@$(CC) $(CFLAGS) -c $< -o $@
-					@printf "$(GREEN)$(BOLD)Compilation $(UNDER_LINE)$(YELLOW)$<$(NO_COLOR)  $(BOLD)–– $(GREEN)[OK]$(NO_COLOR)\n"
+			@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR)
+			@printf "$(GREEN)$(BOLD)Compilation $(UNDER_LINE)$(YELLOW)$<$(NO_COLOR)  $(BOLD)–– $(RED)[KO]        $(NO_COLOR)\r"
+			@$(CC) $(CFLAGS) -c $< -o $@
+			@printf "$(GREEN)$(BOLD)Compilation $(UNDER_LINE)$(YELLOW)$<$(NO_COLOR)  $(BOLD)–– $(GREEN)[OK]$(NO_COLOR)\n"
 
 clean:
-			@rm -rf $(OBJS)
-			@/bin/rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJS)
+	@/bin/rm -rf $(OBJS_DIR)
 
-fclean: 	clean
-			@rm -rf $(NAME)
-			@printf "$(UNDER_LINE)$(BOLD)$(NAME)$(NO_COLOR) $(LIGHT_RED)  deleted$(NO_COLOR)\n"
+fclean: clean
+	@rm -rf $(NAME)
+	@printf "$(UNDER_LINE)$(BOLD)$(NAME)$(NO_COLOR) $(LIGHT_RED)  deleted$(NO_COLOR)\n"
 
-re: 		fclean all
+re: 	fclean all
 
 norm:		
-			@$(NORM) $(SRCS) $(HEADER)
+	@$(NORM) $(SRCS) $(HEADER)
 
 ################
 ##   COLORS   ##
