@@ -10,34 +10,36 @@ SRCS	= \
 		ft_lstiter.c ft_lstdelone.c ft_lstclear.c ft_lstmap.c \
 		get_next_line.c get_next_line_utils.c \
 		ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_u_int.c \
-		ft_max.c ft_min.c ft_isspace.c ft_swap.c ft_abs.c
+		ft_max.c ft_abs.c ft_min.c ft_swap.c ft_isspace.c
 
-NAME	=	libft.a
+NAME	= libft.a
 
-HEADER	=	libft.h
+HEADER	= libft.h
 
-CC		=	gcc
+CC		= gcc
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror
 
 # создаём скрытую директорию, в которой будут .o файлы
-OBJS_DIR =	.obj
+OBJS_DIR= .obj
 
 # прописываем (добавляем) путь для каждого .o файла
-OBJS	= 	$(addprefix $(OBJS_DIR)/, $(patsubst %.c, %.o, $(SRCS)))
+OBJS	=  $(addprefix $(OBJS_DIR)/, $(patsubst %.c, %.o, $(SRCS)))
 
 
-all:	$(NAME)
+
+all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			@ar rc $(NAME) $?
-			@printf "$(GREEN)$(BOLD)$(LIGHT_PURPLE)$(NAME): [Success compiling]$(NO_COLOR)\n"
+			@printf "$(GREEN)$(BOLD)Compiling $(NO_COLOR)$(BOLD)$(NAME)$(NO_COLOR)$(BOLD): "
+			@ar rc $(NAME) $? && printf "$(GREEN)$(BOLD)[Success]$(NO_COLOR)\n" || \
+			printf "$(RED)$(BOLD)[Failure]$(NO_COLOR)\n"
 
 $(OBJS_DIR)/%.o:	%.c $(HEADER) Makefile
 			@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR)
-			@printf "$(GREEN)$(BOLD)Compilation $(UNDER_LINE)$(YELLOW)$<$(NO_COLOR)$(BOLD): wait..."
+			@printf "$(GREEN)$(BOLD)Compiling $(UNDER_LINE)$(YELLOW)$<$(NO_COLOR)$(BOLD): wait..."
 			@$(CC) $(CFLAGS) -c $< -o $@ && printf "\b\b\b\b\b\b\b       \b\b\b\b\b\b\b$(GREEN)[OK] $(NO_COLOR)\n" || \
-				printf "\b\b\b\b\b\b\b       \b\b\b\b\b\b\b$(RED)[KO]$(NO_COLOR)\n"
+			printf "\b\b\b\b\b\b\b       \b\b\b\b\b\b\b$(RED)[KO]$(NO_COLOR)\n"
 
 clean:
 		@rm -rf $(OBJS)
