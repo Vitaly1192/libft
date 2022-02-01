@@ -18,7 +18,7 @@ HEADER	=	libft.h
 
 CC	=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra
 
 
 # создаём скрытую директорию, в которой будут .o файлы
@@ -34,12 +34,11 @@ $(NAME): $(OBJS)
 	@ar rc $(NAME) $?
 	@printf "$(GREEN)$(BOLD)$(LIGHT_PURPLE)libft –– [Success compiling]$(NO_COLOR)\n"
 
-$(OBJS_DIR)/%.o:	%.c $(HEADER)
+$(OBJS_DIR)/%.o:	%.c $(HEADER) Makefile
 			@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR)
-			@printf "$(GREEN)$(BOLD)Compilation $(UNDER_LINE)$(YELLOW)$<$(NO_COLOR)  $(BOLD)–– "
-			@printf "$(RED)[KO]$(NO_COLOR)"
-			@$(CC) $(CFLAGS) -c $< -o $@
-			@printf "\b\b\b\b$(GREEN)[OK]$(NO_COLOR)\n"
+			@printf "$(GREEN)$(BOLD)Compilation $(UNDER_LINE)$(YELLOW)$<$(NO_COLOR)$(BOLD): wait..."
+			@$(CC) $(CFLAGS) -c $< -o $@ && printf "\b\b\b\b\b\b\b       \b\b\b\b\b\b\b$(GREEN)[OK] $(NO_COLOR)\n" || \
+				printf "\b\b\b\b\b\b\b       \b\b\b\b\b\b\b$(RED)[KO]$(NO_COLOR)\n"
 
 clean:
 	@rm -rf $(OBJS)

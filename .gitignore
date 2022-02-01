@@ -1,2 +1,5 @@
 **/*.o
+.DS_Store
+.idea
 libft.a
+libft 2.a
