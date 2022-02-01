@@ -18,8 +18,7 @@ HEADER	=	libft.h
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra
-
+CFLAGS	=	-Wall -Wextra -Werror
 
 # создаём скрытую директорию, в которой будут .o файлы
 OBJS_DIR =	.obj
@@ -30,9 +29,9 @@ OBJS	= 	$(addprefix $(OBJS_DIR)/, $(patsubst %.c, %.o, $(SRCS)))
 
 all:	$(NAME)
 
-$(NAME): $(OBJS)
-	@ar rc $(NAME) $?
-	@printf "$(GREEN)$(BOLD)$(LIGHT_PURPLE)$(NAME): [Success compiling]$(NO_COLOR)\n"
+$(NAME):	$(OBJS)
+			@ar rc $(NAME) $?
+			@printf "$(GREEN)$(BOLD)$(LIGHT_PURPLE)$(NAME): [Success compiling]$(NO_COLOR)\n"
 
 $(OBJS_DIR)/%.o:	%.c $(HEADER) Makefile
 			@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR)
@@ -41,12 +40,12 @@ $(OBJS_DIR)/%.o:	%.c $(HEADER) Makefile
 				printf "\b\b\b\b\b\b\b       \b\b\b\b\b\b\b$(RED)[KO]$(NO_COLOR)\n"
 
 clean:
-	@rm -rf $(OBJS)
-	@/bin/rm -rf $(OBJS_DIR)
+		@rm -rf $(OBJS)
+		@/bin/rm -rf $(OBJS_DIR)
 
 fclean: clean
-	@rm -rf $(NAME)
-	@printf "$(UNDER_LINE)$(BOLD)$(NAME)$(NO_COLOR) $(LIGHT_RED)  deleted$(NO_COLOR)\n"
+		@rm -rf $(NAME)
+		@printf "$(BOLD)$(NAME)$(NO_COLOR)$(LIGHT_RED) deleted$(NO_COLOR)\n"
 
 re: 	fclean all
 
