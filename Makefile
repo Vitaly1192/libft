@@ -16,7 +16,7 @@ NAME	=	libft.a
 
 HEADER	=	libft.h
 
-CC	=	gcc
+CC		=	gcc
 
 CFLAGS	=	-Wall -Wextra
 
@@ -32,7 +32,7 @@ all:	$(NAME)
 
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $?
-	@printf "$(GREEN)$(BOLD)$(LIGHT_PURPLE)libft –– [Success compiling]$(NO_COLOR)\n"
+	@printf "$(GREEN)$(BOLD)$(LIGHT_PURPLE)libft: [Success compiling]$(NO_COLOR)\n"
 
 $(OBJS_DIR)/%.o:	%.c $(HEADER) Makefile
 			@test -d $(OBJS_DIR) || mkdir $(OBJS_DIR)
